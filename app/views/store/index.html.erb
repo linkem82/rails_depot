@@ -1,0 +1,27 @@
+<% if notice %>
+	<p class="alert alert-danger"><%= notice %></p>
+<% end %>
+<h1>Available Products</h1>
+<% cache ['store', Product.latest] do %>
+	<ul class="list-group">
+		<% @products.each do |product| %>
+			<% cache ['entry', product] do %>
+				<li class="list-group-item">
+					bravo
+					<div class="row">
+						<div  class="col-sm-2">
+							<%= image_tag(product.image_url, class: 'img-circle img-responsive') %>
+						</div>
+				  	<div  class="col-sm-6">
+				  		<h3 class="list-group-item-heading"><%= product.title %></h3>
+				  		<p class="list-group-item-text"><%= sanitize(product.description) %></p>
+				  	</div>
+				  	<div class="col-sm-4">
+				  		<div class="badge pull-right"><%= number_to_currency(product.price) %></div>
+				  	</div>
+					</div>
+				</li>
+			<% end %>
+		<% end %>
+	</ul>
+<% end %>
